@@ -1,5 +1,5 @@
 
-## Query to test the Sumologic connetion
+## Query to test the Sumologic connection
 
 ```
 {
@@ -43,29 +43,6 @@
 }
 ```
 
-## Sample Payload template
-```
-{
-  "attachments":[{
-    "pretext":"Sumo Logic Alert: *{{SearchName}}*",
-    "fields":[{
-      "title":"Alert URL",
-      "value":"{{AlertResponseURL}}"
-    },{
-      "title":"Description",
-      "value":"{{SearchDescription}}"
-    },{
-      "title":"Query",
-      "value":"<{{SearchQueryUrl}} | {{SearchQuery}}>"
-    },{
-      "title":"Time Range",
-      "value":"{{TimeRange}}"
-    }],
-    "mrkdwn_in":["text","pretext"],
-    "color":"#29A1E6"
-  }]
-}
-```
 
 # Sumologic Query
 
