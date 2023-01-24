@@ -1,4 +1,4 @@
-## connect to EC2 ssh using certificate
+## Connect to EC2 ssh using certificate
 - ssh -i <path_to_pem_file> ec2-user@<public_ip_address>
 - eg: ssh -i ./demo-ec2-pair.pem ec2-user@ec2-13-33-204-155.ap-southeast-2.compute.amazonaws.com
 - chmod 400 ./demo-ec2-pair.pem
