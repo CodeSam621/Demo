@@ -1,0 +1,75 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "IAMAccess",
+            "Effect": "Allow",
+            "Action": "iam:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "DenyCreatingUserWithoutPermisionBoundary",
+            "Effect": "Deny",
+            "Action": [
+                "iam:CreateUser",
+                "iam:CreateRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::YOUR_ACCOUNT_ID:user/*",
+                "arn:aws:iam::YOUR_ACCOUNT_ID:role/*"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "iam:PermissionsBoundary": "arn:aws:iam::YOUR_ACCOUNT_ID:policy/permission-boundary"
+                }
+            }
+        },
+        {
+            "Sid": "DenyDeletingPolicy",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeletePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:CreatePolicyVersion",
+                "iam:SetDefaultPolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::YOUR_ACCOUNT_ID:policy/permission-boundary"
+            ]
+        },
+        {
+            "Sid": "DenyDeletingPermBoundaryFromAnyUserOrRole",
+            "Effect": "Deny",
+            "Action": [
+                "iam:DeleteUserPermissionsBoundary",
+                "iam:DeleteRolePermissionsBoundary"
+            ],
+            "Resource": [
+                "arn:aws:iam::YOUR_ACCOUNT_ID:user/*",
+                "arn:aws:iam::YOUR_ACCOUNT_ID:role/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "iam:PermissionsBoundary": "arn:aws:iam::YOUR_ACCOUNT_ID:policy/permission-boundary"
+                }
+            }
+        },
+        {
+            "Sid": "DenyUpdatingPermissionBoundary",
+            "Effect": "Deny",
+            "Action": [
+                "iam:PutUserPermissionsBoundary",
+                "iam:PutRolePermissionsBoundary"
+            ],
+            "Resource": [
+                "arn:aws:iam::YOUR_ACCOUNT_ID:user/*",
+                "arn:aws:iam::YOUR_ACCOUNT_ID:role/*"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "iam:PermissionsBoundary": "arn:aws:iam::YOUR_ACCOUNT_ID:policy/permission-boundary"
+                }
+            }
+        }       
+    ]
+}
