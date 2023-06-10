@@ -1,3 +1,4 @@
+``` python
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from datetime import datetime
@@ -170,3 +171,4 @@ def batch_delete_transaction_records(items_to_delete):
             })
 # items = [{"id": "cus-04", "order_id": "ord-4" }, {"id": "cus-05", "order_id": "ord-4" }]
 # batch_delete_transaction_records(items)
+```
