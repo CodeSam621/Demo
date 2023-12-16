@@ -1,4 +1,4 @@
-## Lambda: test-hellow-lambda
+## Lambda: test-hellow-lambda ( GET USER end point)
 
 ```python
 import json
@@ -20,7 +20,7 @@ def lambda_handler(event, context):
 
 ```
 
-## Lambda: demo-post-users
+## Lambda: demo-post-users ( POST USER end point)
 
 ```python
 import json
