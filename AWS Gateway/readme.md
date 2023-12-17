@@ -1,39 +1,6 @@
-## Lambda: test-hellow-lambda ( GET USER end point)
+## AWS API Gateway Full Course
+This video series is about full course of AWS API Gateway. This covers basic concept to advance concept with the demos
+Covers securing API gateway, troubleshooting, scaling 
+Once you went through these video, you should have good understanding of API Gateway.
 
-```python
-import json
-
-def lambda_handler(event, context):
-    
-    print(f'event: {event}');
-    
-    # this users object can be fetched from database  etc.
-    users =  [
-                {"id": 1, "name": "john dove"}, 
-                {"id": 2, "name": "michel wats"}
-             ]
-        
-    return {
-        'statusCode': 200,
-        'body': json.dumps(users)
-    }
-
-```
-
-## Lambda: demo-post-users ( POST USER end point)
-
-```python
-import json
-
-def lambda_handler(event, context):
-    
-    print(f'event: {event}')
-    print(f'Posting user details')
-    # save the information database
-    
-    return {
-        'statusCode': 200,
-        'body': json.dumps('User added')
-    }
-
-```
+Demo video: https://www.youtube.com/watch?v=c3J5uvdfSfE&list=PLruLATXv4pNz2RPn5X6iMmqyvv69NprJS
