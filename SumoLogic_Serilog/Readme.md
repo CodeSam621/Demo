@@ -2,7 +2,7 @@
 
 ## Introduction
 
-## Nuget packages to install
+## Nuget packages in project file (.csproj)
 
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
@@ -11,6 +11,15 @@
     <PackageReference Include="Serilog.Sinks.SumoLogic" Version="2.4.0" />
     <PackageReference Include="SumoLogic.Logging.Serilog" Version="1.0.1.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+
+## Install packages using `dotnet` cli
+    dotnet add package Serilog --version=3.1.1
+    dotnet add package Serilog.AspNetCore --version=8.0.0
+    dotnet add package Serilog.Formatting.Compact --version=2.0.0
+    dotnet add package Serilog.Settings.Configuration --version=8.0.0
+    dotnet add package Serilog.Sinks.SumoLogic --version=2.4.0
+    dotnet add package SumoLogic.Logging.Serilog --version=1.0.1.7
+    dotnet add package Serilog --version=3.1.1
 
 ## appsetting.json file
 
