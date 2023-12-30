@@ -1,8 +1,11 @@
 ## DotNet Web API integrate with Serilog and Sumologic
 
+## Step by Step guid
+You can find the step by step guidance in this video: TBD
+
 ## Introduction
 This project is a step by step guide to setup a `dotnet 6` peoject with `Serilog` logs and `Sumologic`.
-After setting up the project, the logs should be available in Sumologic application and optionally you can see in logs file in local folder. The path to the log file in the folder will be config in the `appsettings.json` file.
+After setting up the project, the logs should be available in Sumologic application and optionally you can see in logs file in local folder. The path to the log file in the folder will be config in the `appsettings.json` file.  Tested the below packages with dotnet 6 and should be work latest dotnet version like `dotnet 7, 8`, etc
 
 ## Install packages using `dotnet` cli
     dotnet add package Serilog --version=3.1.1
