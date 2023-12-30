@@ -1,19 +1,12 @@
 using System;
 using Microsoft.Extensions.Configuration;
 using Serilog.Formatting.Compact;
-
-// using Microsoft.AspNetCore.Builder;
 using Serilog;
-// using Serilog.Sinks.SumoLogic;
 using SumoLogic.Logging.Serilog.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-// IConfigurationRoot configuration = new ConfigurationBuilder()
-//     .AddJsonFile("appsettings.json")
-//     .Build();
 
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
