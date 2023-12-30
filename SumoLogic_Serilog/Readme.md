@@ -1,6 +1,6 @@
 ## DotNet Web API integrate with Serilog and Sumologic
 
-## Step by Step guid
+## Step by Step guide
 You can find the step by step guidance in this video: TBD
 
 ## Introduction
