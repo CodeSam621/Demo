@@ -40,27 +40,6 @@ def lambda_handler(event, context):
             'body': json.dumps({"success": False, "message": "Failed"})
         }
 
-def get_connection_id(bucket, key):
-    try:
-        result = s3_client.get_object_tagging( Bucket=bucket,Key= key)
-        for tag in result["TagSet"]:
-            if(tag["Key"]== "connection_id"):
-                return tag["Value"]
-        return None
-    except Exception as error:
-        print('Error while getting connection Id. {error}')
-        return None
-
-def write_to_file(response):
-    text_file = open("./sample_responses/audi2.json", "w")
-    text_file.write(str(response['TextDetections']))    
-    text_file.close()
-
-def get_existing_response():
-    with open('./sample_responses/audi1.json') as json_file:
-        contents = json.load(json_file)
-    return contents
-
 def extract_number_plate(bucket, key):
    list = get_detected_text_list(bucket, key)
    print('List', list)
