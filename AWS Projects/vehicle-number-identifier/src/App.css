@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  font-family: sans-serif;
 }
 
 .App-logo {
@@ -8,21 +7,32 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 label#numberPlate {
   font-size: 25px;
   color: rgb(19, 157, 125);
   font-style:oblique;  
 }
-
+h3 {
+  font-size: 50px;
+  color: rgb(143, 112, 197);
+}
 label#message {
   font-size: 25px;
   color: rgb(157, 19, 93);
   font-style:oblique;  
+}
+
+#web-socket-status {
+  position: absolute; 
+  top: 0px;
+  right: 0px;
+}
+
+
+input {
+  font-size: 25px;
+  color: rgb(0, 255, 170);
+  background-color: rgb(78, 74, 74);
 }
 
 input {
@@ -30,15 +40,22 @@ input {
   color: rgb(0, 255, 170);
   background-color: rgb(78, 74, 74);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
 .App-header {
-  background-color: #252b28;
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(15px + 5vmin);
-  color: rgb(151, 120, 120);
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-link {
