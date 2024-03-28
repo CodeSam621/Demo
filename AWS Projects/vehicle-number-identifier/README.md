@@ -9,9 +9,11 @@ This app containes two projects which are front end and back end.
 - Front-End => React
 - Back-End =>  Python
 
+## Application
+![image](https://github.com/CodeSam621/Demo/assets/101965114/d594039c-cb71-467b-a8f4-7a5ebb355725)
 
 ## STEP BY STEP instructions
-Please check this video for step by ste guidance
+Please check this video for step by ste guidance https://youtu.be/EZrXBnca4KY
 
 ## Backend code ( Lambda code)
 You can find the source code for the lambda(`demo-vehicle-sendVehicleInfo`) [here](https://github.com/CodeSam621/Demo/tree/main/AWS%20Projects/vehicle-number-identifier/server)
@@ -34,5 +36,8 @@ Use below 2 python files to create lambda function
 
 ## Sample images
 You can find sample image files [here](https://github.com/CodeSam621/Demo/tree/main/AWS%20Projects/vehicle-number-identifier/src/SampleImages)
+
+
+
 
 
