@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
+import { MdOnlinePrediction } from "react-icons/md";
 import './App.css';
 
 const bucketName = "vehicle-image-bucket"
 const creds = {
-  accessKeyId: "xxxxxxx", // replace with access Id
-  secretAccessKey: "xxxxxx", // replace with secret key
+  accessKeyId: "<REPLACE WITH YOUR ACCESS KEY>",  
+  secretAccessKey: "<REPLACE WITH YOUR SECRET KEY>",
 };
 
 const client = new S3Client({
@@ -19,25 +20,30 @@ function App() {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
   const [ws, setWs] = useState(undefined);
-  const [numberPlate, setNumberPlate] = useState("Number plate:.......");
+  const [numberPlate, setNumberPlate] = useState("");
+  const [socketStatusColour, setSocketStatusColour]= useState("grey")
 
   useEffect(() => {
     if(!ws){
       console.log('........Connecting to server...........')
-      const webSocket = new WebSocket("<YOUR WSS END POINT>"); // url like wss://xxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/<stage>/
-      setWs(webSocket)
-    }  
+      const webSocket = new WebSocket("wss://nb1t7abol1.execute-api.us-east-1.amazonaws.com/dev/");
+      setWs(webSocket)     
+    } else{
+      setSocketStatusColour("grey")
+    }
   },[]);
+
 
   if(ws) {
     ws.onopen = (event) => {
       console.log('Connection established', event)
+      setSocketStatusColour("green")
     };
     ws.onmessage = function (event) {
       console.log(`event`, event)      
       try {     
         const data = JSON.parse(event.data);
-          console.log('data', data.message)
+          console.log('Number:', data.message)
           setMessage("")
           setNumberPlate(`Number plate: ${data.message}`);
 
@@ -47,13 +53,13 @@ function App() {
     };  
   }
 
-  const processImage = async (e) => {
+  const processImage = async (event) => {
       setNumberPlate(`Number plate: .....`);
-      const imageName = e.target.files[0].name;
-      setImage(e.target.files[0])
+      setImage(event.target.files[0])
 
-      const uploadResult = await uploadFileToS3(e.target.files[0])
+      const uploadResult = await uploadFileToS3(event.target.files[0])
       if(uploadResult){
+        const imageName = event.target.files[0].name;
         await sendMessage(imageName);
       }
   }
@@ -89,14 +95,16 @@ function App() {
   }
 
   const sendMessage = async (imageName) => {
-    try{
+    try {
       if(ws) {
         setMessage(`Sending image ${imageName} info....`)
 
-        await ws.send( JSON.stringify( {
-          "action": "send",
+       const result =  await ws.send( JSON.stringify( {
+          "action": "sendVehicleInfo",
           "message": {"bucket": bucketName, "key": imageName}
       }));
+
+      console.log('result', result)
         setMessage("Processing image....")
       }    
     }
@@ -106,11 +114,14 @@ function App() {
   
   }
 
-
   return (
     <div className="App">
       <header className="App-header">
-      <img src={image == null? "https://placehold.jp/150x150.png": URL.createObjectURL(image)} style={{ height: 400, width: 400 }} />
+        <h3>Vehicle Number Plate Recognition System</h3>
+        <div id="web-socket-status"> <MdOnlinePrediction color= {socketStatusColour} size={100} /></div>
+        {
+          image=== null? <div></div>:<img src={URL.createObjectURL(image)} style={{ height: 400, width: 400 }} />
+        }
       
       <br></br>
       <input type="file" onChange={processImage} />
