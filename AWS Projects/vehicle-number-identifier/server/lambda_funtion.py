@@ -1,22 +1,12 @@
 import boto3, json
 from publisher import publish
 
-is_local = False
 s3_client = boto3.client('s3', "ap-southeast-2")
 
 def lambda_handler(event, context):
     
     try:
-        bucket = "vehicle-image-bucket"
-        key = "audi2.png"
-
         print(f'event: {event}')
-        if(event == None):
-            return {
-                    'statusCode': 200,
-                    'body': "empty event"
-            } 
-            
         message_body = json.loads(event["body"])        
         message =  message_body['message']        
         bucket = message["bucket"]
@@ -26,6 +16,7 @@ def lambda_handler(event, context):
         print(f'bucket: {bucket}, key: {key}, connection_id: {connection_id} ')
 
         number_plate = extract_number_plate( bucket, key)
+        
         if(connection_id != None):
             publish(connection_id, number_plate)
         
@@ -36,7 +27,7 @@ def lambda_handler(event, context):
     except Exception as error:
         print(f'Error occurrred. {error}')
         return {
-            'statusCode': 200,
+            'statusCode': 500,
             'body': json.dumps({"success": False, "message": "Failed"})
         }
 
@@ -50,19 +41,15 @@ def extract_number_plate(bucket, key):
 
 def get_detected_text_list( bucket, key):
     response = {}
-    if(is_local is False):
-        client = boto3.client('rekognition', "ap-southeast-2")
-        response = client.detect_text(Image= {
-            'S3Object': {
-                'Bucket': bucket,
-                'Name': key
-            }
-        })
-        # write_to_file(response)
-        print('Response:', response)
-    else:
-        print('Reading from local file')
-        response = get_existing_response()
+    client = boto3.client('rekognition', "us-east-1")
+    response = client.detect_text(Image= {
+        'S3Object': {
+            'Bucket': bucket,
+            'Name': key
+        }
+    })
+    print(f'Response: {response}')
+    
     list_of_detected_object = response["TextDetections"]
     
     list_of_detected_text = []
@@ -74,6 +61,7 @@ def get_detected_text_list( bucket, key):
 
     return list_of_detected_text
 
+
 ###########
 ## Custom logic to validate the number plate.
 ###########
@@ -83,6 +71,3 @@ def validate_detected_text(text):
     if(len(text) != 8):
         return None
     return text
-
-# testing
-lambda_handler(None, None)
